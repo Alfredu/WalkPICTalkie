@@ -12,3 +12,4 @@ html/
 nbproject/private/
 nbproject/Package-*.bash
 build/
+/dist/default/
