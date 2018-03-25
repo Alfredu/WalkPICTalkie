@@ -10,13 +10,13 @@
 #include "config.h"
 
 void init_pins(void){
-    TRISAbits.TRISA0 = 1;
-    ANSELAbits.ANSA0 = 0;
+    TRISAbits.TRISA0 = 0b1;         //RA0 as input
+    ANSELAbits.ANSA0 = 0b0;         //RA0 as analog pin
 }
 
 void init_oscillator(void){
-    OSCCONbits.IRCF = 0xF; //Clock running at 16MHz
-    OSCCONbits.SCS  = 0x0; //Using Config Bits
+    OSCCONbits.IRCF = 0xF;          //Clock running at 16MHz
+    OSCCONbits.SCS  = 0x0;          //Using Config Bits
 }
 
 void init_adc(void){
@@ -37,7 +37,18 @@ void init_timer(void){
     T1CONbits.TMR1CS    = 0b00;
     T1CONbits.T1CKPS    = 0b00;
     T1CONbits.T1OSCEN   = 0b0;
-    T1CONbits.nT1SYNC   = 0b1;
-    T1CONbits.TMR1ON    = 0b1;
+    T1CONbits.nT1SYNC   = 0b1;      
+    T1CONbits.TMR1ON    = 0b1;      //Enable Timer
+    
+}
+
+void init_interrupts(void){
+    
+    INTCONbits.PEIE = 0b1;      //Peripheral interrupts enabled
+    PIE1bits.ADIE   = 0b1;      //ADC Interrupt enabled
+    PIE1bits.CCP1IE = 0b0;      /*CCP1 Interrupt disabled.
+                                 *We don't need it to autoconvert ADC.
+                                 */
+    INTCONbits.GIE  = 0b1;      //Global interrupts enabled
     
 }

@@ -71,6 +71,7 @@ void init_oscillator(void);
 void init_adc(void);
 void init_pins(void);
 void init_timer(void);
+void init_interrupts(void);
 
 #ifdef	__cplusplus
 extern "C" {
