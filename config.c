@@ -34,12 +34,14 @@ void init_adc(void){
 }
 
 void init_timer(void){
-    T1CONbits.TMR1CS    = 0b00;
-    T1CONbits.T1CKPS    = 0b00;
-    T1CONbits.T1OSCEN   = 0b0;
-    T1CONbits.nT1SYNC   = 0b1;      
-    T1CONbits.TMR1ON    = 0b1;      //Enable Timer
+    //CCP1 stuff
+    CCP1CONbits.CCP1M   = 0b1011;   //Enable ADC autoconversion
     
+    T1CONbits.TMR1CS    = 0b00;     //Driven from FOSC/4 instruction clock 
+    T1CONbits.T1CKPS    = 0b00;     //1:1 Preescaler
+    T1CONbits.T1OSCEN   = 0b0;      //Ni zorra
+    T1CONbits.nT1SYNC   = 0b1;      //Nidea tampoc.
+    T1CONbits.TMR1ON    = 0b1;      //Enable Timer
 }
 
 void init_interrupts(void){

@@ -9,23 +9,26 @@
 #include <xc.h>
 #include "config.h"
 
-volatile int x = 0;
+volatile unsigned char result;
+
+void interrupt interrupt_routine(void){
+    if(PIE1bits.ADIE && !ADCON0bits.DONE){
+        result = (ADRES>>2) & 0xFF;
+    }
+}
 
 void setup(void){
     init_pins();
     init_oscillator();
-    init_adc();
+    init_adc(); 
+    init_interrupts();
     init_timer();
 }
 
 
 void main(void) {
     setup();
-    while(1){
-        ADCON0bits.GO = 1;
-        while(!ADCON0bits.DONE);
-        char res = (char) (ADRES>>2)&0x00FF;
-    }
+    while(1);
     
     return;
 }
